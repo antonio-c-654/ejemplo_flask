@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocketIO & Python Flask</title>
+</head>
+<body>
+    <h1>Python Flask & SocketIO App</h1>
+    <ul id="messages"></ul>
+    <input type="text" id="myMessage">
+    <button type="button" id="send">Send</button>
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
+    <!-- socketio -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js" integrity="sha512-zoJXRvW2gC8Z0Xo3lBbao5+AS3g6YWr5ztKqaicua11xHo+AvE1b0lT9ODgrHTmNUxeCw0Ry4BGRYZfXu70weg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        const socket = io();
+        // socket.emit('message', 'hello!!')
+        // emite el evento que estaba escuchando
+
+
+        socket.on('message', function(msg){
+            $('#messages').append('<li>' + msg + '</li>')
+        });
+
+        //usar jquery, cuando le damos click lo muestra en consola, activa evento handleMessage
+        $('#send').on('click', function()
+            {
+                socket.send($('#myMessage').val());
+                console.log($('#myMessage').val());
+                $('#myMessage').val('');
+            }
+        )
+    </script>
+
+</body>
+</html>
